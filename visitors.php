@@ -9,8 +9,8 @@ class visitors{
 			die("Error,not connect to database~");
 	}
 	//query first and update table
-	function add_visitor($ip,$info){
-		$sql1 = 'select id,freq from visitors where ip ="'.$ip.'"';
+	function add_visitor($ip,$info,$url){
+		$sql1 = 'select id,freq from visitors where ip ="'.$ip.'"'.' and url = "'.$url.'"';
 		$result = $this->db->query($sql1);
 		#echo $sql1;
 		if(!$result){
@@ -42,7 +42,7 @@ class visitors{
 		}
 		else{//a fresh visitor
 			$sql2 = "insert into visitors values(null,'".$ip."',".time().","."1".
-						',"'.$info.'")';
+						',"'.$info.'","'.$url.'")';
 			$result = $this->db->query($sql2);
 			if(!$result){
 				return false;
@@ -55,7 +55,7 @@ class visitors{
 	
 	//get the visitor record
 	function get_record(){
-		$sql = "select * from visitors";	
+		$sql = "select * from visitors order by freq desc";	
 		$result = $this->db->query($sql);
         if(!$result){
 			echo "Error A";
@@ -66,8 +66,9 @@ class visitors{
         $num = $result->num_rows;
 
         if($num > 0){//an old customer
-			echo "<table><th><td>id</td><td>IP</td><td>Last Visite</td><td>Total</td>".
-					"<td>Agent</td></th>";
+			echo "<table><tr><th>Id</th><th>IP</th><th>Last Visite</th>".
+					"<th>Total</th>".
+					"<th>Agent</th>"."<th>Url</th></tr>";
 			while($row = $result->fetch_row()){
             
             	$id = $row[0];
@@ -75,11 +76,13 @@ class visitors{
 				$lvisitt = $row[2];
             	$freq = $row[3];
 				$info = $row[4];
+				$url = $row[5];
 				echo "<tr><td>".$id."</td>".
 						"<td>".$ip."</td>".
 						"<td>".date('j F Y H:i',$lvisitt)."</td>".
 						"<td>".$freq."</td>".
-						"<td>$info</td></tr>";
+						"<td>$info</td>".
+						"<td>$url</td></tr>";
 			}
 			$result->free();
 			echo "</table>";
