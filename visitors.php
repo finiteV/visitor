@@ -64,8 +64,8 @@ class visitors{
         $num = $result->num_rows;
 
         if($num > 0){//an old customer
-			echo "<table><th><td>id</td><td>IP</td><td>Last Visite</td><td>Total</td>".
-					"<td>Agent</td></th>";
+			echo "<table><tr><th>id</th><th>IP</th><th>Last Visite</th><th>Total</th>".
+					"<th>Agent</th></tr>";
 			while($row = $result->fetch_row()){
             
             	$id = $row[0];
