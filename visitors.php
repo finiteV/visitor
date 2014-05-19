@@ -6,7 +6,7 @@ class visitors{
 		if($db!=null)
 			$this->db = $db;
 		else
-			die("Error,not connect to database~");
+			die("Error,not connected to database~");
 	}
 	//query first and update table
 	function add_visitor($ip,$info){
@@ -29,9 +29,7 @@ class visitors{
 			$sql2 = "update visitors set lvisitt = ".time().",freq = ".$freq.
 					",info = '".$info."'".
 					" where id = ".$id;
-			#$sql2 = 'insert into visitors(lvisitt,freq) values('.time().",".$freq.
-			#		") where id = ".$id.")";
-			#$sql2 = "insert into visitors values(null,'".$ip."',".time().","."1".")";
+
 			$result->free();
 			$result = $this->db->query($sql2);
 			if(!$result){
