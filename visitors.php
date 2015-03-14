@@ -55,7 +55,9 @@ class visitors{
 	
 	//get the visitor record
 	function get_record(){
-		$sql = "select * from visitors order by freq desc";	
+		//three month's record
+		$past3 = time()-2*30*24*60*60;
+		$sql = "select * from visitors where lvisitt>$past3 order by freq desc limit 150";
 		$result = $this->db->query($sql);
         if(!$result){
 			echo "Error A";
