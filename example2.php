@@ -6,7 +6,7 @@ table{
   border-collapse:collapse;
 }
 tr{
-  border-bottom:1px solid  #F8F8FF;
+  border-bottom:1px solid  blue;
 }
 th{
   text-align:center;
